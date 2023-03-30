@@ -3,6 +3,7 @@
 set -e
 
 SSH_DIR=$HOME/.ssh
+SETUP_DIR=$HOME/devenv
 
 if ! [ -x $(command -v pip) ]; then
 	sudo apt install python3-pip
