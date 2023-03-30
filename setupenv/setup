@@ -37,4 +37,4 @@ if [[ -f "$SETUP_DIR/requirements.yaml" ]]; then
 fi
 
 cd "$SETUP_DIR"
-"$LOCAL_BIN"ansible-playbook --diff "$SETUP_DIR/main.yaml" -i hosts.yaml
+"$LOCAL_BIN"/ansible-playbook --diff "$SETUP_DIR/main.yaml" -i hosts.yaml
