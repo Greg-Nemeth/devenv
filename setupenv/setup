@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -e
+
+SSH_DIR=$HOME/.ssh
+
+if ! [ -x $(command -v pip) ]; then
+	sudo apt install python3-pip
+	pip install --upgrade pip
+	echo "export PATH =$PATH:$HOME/.local/bin" >> $HOME/.bashrc	
+	source $HOME/.bashrc
+fi
+
+if ! [ -x $(command -v ansible) ]; then
+	python3 -m pip install --user ansible-core
+	sudo python3 -m pip install argcomplete
+	sudo activate-global-python-argcomplete
+fi
+
+if ! [[ -f "$SSH_DIR/id_ed25519" ]]; then
+	mkdir -p "$SSH_DIR"
+
+	chmod 700 "$SSH_DIR"
+
+	ssh-keygen -t ed25519 -f "$SSH_DIR/id_ed25519" -N "" -C "$USER@$HOSTNAME"
+
+	cat "$SSH_DIR/id_ed25519.pub" >> "$SSH_DIR/authorized_keys"
+
+	chmod 600 "$SSH_DIR/authorized_keys"
+fi
