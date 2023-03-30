@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  tasks:
+    - name: install tmux
+      ansible.builtin.package:
+        name: tmux
+        state: present
+
+    - name: Install docker with ansible
+      include_role:
+        name: geerlingguy.docker
+      vars:
+        docker_users:
+          - "{ lookup('ansible.builtin.env', 'USER' }"

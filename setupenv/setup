@@ -29,3 +29,11 @@ if ! [[ -f "$SSH_DIR/id_ed25519" ]]; then
 
 	chmod 600 "$SSH_DIR/authorized_keys"
 fi
+
+if [[ -f "$SETUP_DIR/requirements.yaml" ]]; then
+	cd "$SETUP_DIR"
+	ansible-galaxy install -r requirements.yaml
+fi
+
+cd "$SETUP_DIR"
+ansible-playbook --diff "$SETUP_DIR/main.yaml" -i hosts.yaml
