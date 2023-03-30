@@ -5,10 +5,13 @@
       ansible.builtin.package:
         name: tmux
         state: present
+      become: true
 
     - name: Install docker with ansible
       include_role:
         name: geerlingguy.docker
+        apply:
+          become: true
       vars:
         docker_users:
-          - "{ lookup('ansible.builtin.env', 'USER' }"
+          - "{{ lookup('ansible.builtin.env', 'USER') }}"
