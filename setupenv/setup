@@ -9,7 +9,7 @@ LOCAL_BIN=$HOME/.local/bin
 if ! [ -x "$(command -v pip)" ]; then
 	sudo apt install python3-pip
 	pip install --upgrade pip
-	echo "export PATH =$PATH:$HOME/.local/bin" >> $HOME/.bashrc	
+	echo "export PATH=$PATH:$HOME/.local/bin" >> $HOME/.bashrc	
 	source $HOME/.bashrc
 fi
 
