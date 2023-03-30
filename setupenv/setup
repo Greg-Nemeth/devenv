@@ -4,15 +4,16 @@ set -e
 
 SSH_DIR=$HOME/.ssh
 SETUP_DIR=$HOME/devenv
+LOCAL_BIN=$HOME/.local/bin
 
-if ! [ -x $(command -v pip) ]; then
+if ! [ -x "$(command -v pip)" ]; then
 	sudo apt install python3-pip
 	pip install --upgrade pip
 	echo "export PATH =$PATH:$HOME/.local/bin" >> $HOME/.bashrc	
 	source $HOME/.bashrc
 fi
 
-if ! [ -x $(command -v ansible) ]; then
+if ! [ -x "$(command -v ansible)" ]; then
 	python3 -m pip install --user ansible-core
 	sudo python3 -m pip install argcomplete
 	sudo activate-global-python-argcomplete
@@ -32,8 +33,8 @@ fi
 
 if [[ -f "$SETUP_DIR/requirements.yaml" ]]; then
 	cd "$SETUP_DIR"
-	ansible-galaxy install -r requirements.yaml
+	"$LOCAL_BIN"/ansible-galaxy install -r requirements.yaml
 fi
 
 cd "$SETUP_DIR"
-ansible-playbook --diff "$SETUP_DIR/main.yaml" -i hosts.yaml
+"$LOCAL_BIN"ansible-playbook --diff "$SETUP_DIR/main.yaml" -i hosts.yaml
